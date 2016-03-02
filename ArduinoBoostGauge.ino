@@ -41,7 +41,7 @@ void setup() {
   //set up the calibration button
   pinMode(calButtonPin, INPUT);
   //set internal pullup resistor
-  pinMode(calButtonPin, LOW);
+  digitalWrite(calButtonPin, HIGH);
   //retrieve pressure offset from ROM
   retrievePressureOffset();
 }
@@ -104,10 +104,8 @@ void retrievePressureOffset() {
 ////////////////////////////////////////////////////////////////
 void readCalibrateButton() {
   //Read button
-  return;
-  if(digitalRead(calButtonPin) == HIGH){
+  if(digitalRead(calButtonPin) == LOW){
     //Re-zero pressure
-    Serial.print("here");
     int tempValue = analogRead(sensorPin);
     //update pressure zero value in ROM
     EEPROM.write(0, lowByte(tempValue));
